@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML ELEMENTS</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"><style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#43cea2,#185a9d);
+  color:white;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+/* Card Style */
+.card{
+  background:rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:20px;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,0.2);
+}
+
+code{
+  background:black;
+  padding:5px 8px;
+  border-radius:5px;
+  color:#00ffcc;
+}
+
+ul{
+  margin-left:20px;
+  margin-top:10px;
+}
+
+</style></head><body><div class="container"><h1>🧩 HTML Elements</h1><div class="card">
+<h2>📘 What is an HTML Element?</h2>
+<p>
+An HTML element is the basic building block of a webpage. It tells the browser how to display content.
+</p>
+</div><div class="card">
+<h2>⚙️ Structure of an Element</h2>
+<p>
+Most HTML elements consist of:
+</p>
+<ul>
+<li><b>Opening Tag</b> → <code>&lt;tagname&gt;</code></li>
+<li><b>Content</b> → Text or other elements</li>
+<li><b>Closing Tag</b> → <code>&lt;/tagname&gt;</code></li>
+</ul><p style="margin-top:10px;">
+Example:
+</p>
+<code>&lt;p&gt;This is a paragraph&lt;/p&gt;</code>
+</div><div class="card">
+<h2>🔍 Types of HTML Elements</h2>
+<ul>
+<li><b>Block Elements</b> → Take full width (e.g., <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>)</li>
+<li><b>Inline Elements</b> → Take only needed width (e.g., <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>)</li>
+</ul>
+</div><div class="card">
+<h2>⭐ Empty Elements</h2>
+<p>
+Some elements do not have closing tags. These are called empty elements.
+</p>
+<ul>
+<li><code>&lt;br&gt;</code> → Line break</li>
+<li><code>&lt;hr&gt;</code> → Horizontal line</li>
+<li><code>&lt;img&gt;</code> → Image</li>
+</ul>
+</div><div class="card">
+<h2>💡 Nested Elements</h2>
+<p>
+HTML elements can be placed inside other elements.
+</p>
+<code>&lt;p&gt;This is &lt;b&gt;bold&lt;/b&gt; text&lt;/p&gt;</code>
+</div><div class="card">
+<h2>🚀 Why HTML Elements Matter?</h2>
+<ul>
+<li>They structure web pages</li>
+<li>They define meaning of content</li>
+<li>They help browsers render correctly</li>
+<li>They improve SEO and accessibility</li>
+</ul>
+</div></div></body>
+</html>
