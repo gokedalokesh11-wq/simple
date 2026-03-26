@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Lesson</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,#ff7e5f,#feb47b);
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .navbar{
+      padding:15px 25px;
+      background:rgba(0,0,0,0.25);
+      backdrop-filter:blur(10px);
+    }
+
+    .navbar a{color:#fff;text-decoration:none;font-weight:500}
+
+    .container{
+      max-width:900px;
+      margin:auto;
+      padding:20px;
+      width:100%;
+    }
+
+    h1,h2{text-align:center;margin:20px 0}
+
+    /* Card */
+    .card{
+      background:rgba(255,255,255,0.12);
+      padding:20px;
+      border-radius:20px;
+      backdrop-filter:blur(10px);
+      margin-bottom:25px;
+      transition:.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 10px 25px rgba(0,0,0,.25);
+    }
+
+    /* Video */
+    .video{
+      display:flex;
+      justify-content:center;
+    }
+
+    iframe{
+      width:100%;
+      max-width:700px;
+      height:350px;
+      border:none;
+      border-radius:15px;
+    }
+
+    /* TTS */
+    .hero{
+      text-align:center;
+    }
+
+    .hero span{color:#ffe082}
+
+    .text{
+      width:100%;
+      height:180px;
+      margin-top:15px;
+      border:none;
+      border-radius:12px;
+      padding:10px;
+      font-size:15px;
+      resize:none;
+      color:#000;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top:15px;
+    }
+
+    select,button{
+      padding:10px 15px;
+      border-radius:10px;
+      border:none;
+    }
+
+    button{
+      background:#ffe082;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    button:hover{background:#ffd54f}
+
+  </style></head><body>  <div class="navbar">
+    <a href="index.html">🏠 Home</a>
+  </div>  <div class="container"><h1>🎥 HTML Learning Video</h1>
+
+<div class="card video">
+  <iframe src="https://www.youtube.com/embed/a_iQb1lnAEQ" allowfullscreen></iframe>
+</div>
+
+<div class="card hero">
+  <h2>🔊 Text To Speech <span>Converter</span></h2>
+
+  <textarea readonly class="text">This comprehensive 5-hour HTML & CSS course is designed for beginners to learn web development by building five real-world projects from scratch (0:00 - 0:10). The course focuses on hands-on learning, featuring over 75 coding challenges to build muscle memory.
+
+### Course Projects & Key Topics
+
+Google.com Clone (0:29:37 - 2:18:20): Learn the fundamentals of HTML structure and CSS styling, including block vs. inline elements, margins, padding, borders, and flexbox for centering content.
+Digital Business Card (2:20:27 - 3:12:16): Focuses on image handling, alt text for accessibility, flexbox child containers, and CSS inheritance.
+Space Exploration Site (3:14:17 - 3:56:17): Covers advanced CSS styling, including background images, Google Fonts, text shadows for readability, and CSS variables.
+Birthday GIFt Site (3:58:02 - 5:11:36): Build an interactive site featuring hover effects, background gradients, and complex flexbox layouts.
+Hometown Homepage (Solo Project) (5:13:29 - 5:19:54): Apply all learned skills to build a complete website based on a Figma design.
+
+### Deployment & Tools
+
+The course also covers essential developer tools and deployment strategies, including VS Code, GitHub Desktop for version control, and Netlify for deploying websites to the live internet (1:01:30, 3:07:26, 5:00:25).</textarea>
+
+  <div class="row">
+    <select></select>
+    <button onclick="speakText()">▶ Listen</button>
+  </div>
+</div>
+
+  </div>  <script>
+    function speakText(){
+      const text = document.querySelector('.text').value;
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = 'en-US';
+      window.speechSynthesis.speak(speech);
+    }
+  </script></body>
+</html>
