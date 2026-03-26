@@ -1,49 +1,44 @@
-// Select the elements using the IDs we added
-const textInput = document.getElementById("textInput");
-const voiceSelect = document.getElementById("voiceSelect");
-const speakBtn = document.getElementById("speakBtn");
-
-let speech = new SpeechSynthesisUtterance();
 let voices = [];
+let voiceselect = document.querySelector("select");
 
+// Load voices properly
 function loadVoices() {
-    // 1. Get voices from the browser
-    voices = window.speechSynthesis.getVoices();
-    
-    // 2. If no voices are found yet (common in Chrome), stop and wait for the event
+    voices = speechSynthesis.getVoices();
+
     if (voices.length === 0) return;
 
-    // 3. Clear the dropdown and fill it with voices
-    voiceSelect.innerHTML = ''; 
+    voiceselect.innerHTML = "";
     voices.forEach((voice, i) => {
-        let option = new Option(`${voice.name} (${voice.lang})`, i);
-        voiceSelect.add(option);
+        voiceselect.options[i] = new Option(voice.name, i);
     });
-
-    // 4. Set the default voice
-    speech.voice = voices[0];
 }
 
-// Handle the "Async" loading of voices in Chrome/Edge
-if (speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = loadVoices;
-}
+// Force load voices (important for GitHub Pages)
+speechSynthesis.onvoiceschanged = loadVoices;
 
-// Run once immediately for Firefox/Safari
-loadVoices();
+// Extra fallback (VERY IMPORTANT)
+setInterval(() => {
+    if (voices.length === 0) {
+        loadVoices();
+    }
+}, 500);
 
-// Update the voice when the dropdown changes
-voiceSelect.addEventListener("change", () => {
-    speech.voice = voices[voiceSelect.value];
-});
+// Speak button
+document.querySelector("button").addEventListener("click", () => {
+    let text = document.querySelector("textarea").value;
 
-// Make the button work
-speakBtn.addEventListener("click", () => {
-    // Take the text from the readonly textarea
-    speech.text = textInput.value;
+    if (!text) {
+        alert("Enter text first");
+        return;
+    }
 
-    // IMPORTANT: Cancel current speech before starting new one 
-    // This prevents the button from "freezing" if clicked twice
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(speech);
+    let speech = new SpeechSynthesisUtterance(text);
+
+    // Use selected voice if available
+    if (voices.length > 0) {
+        speech.voice = voices[voiceselect.value];
+    }
+
+    speechSynthesis.cancel();
+    speechSynthesis.speak(speech);
 });
