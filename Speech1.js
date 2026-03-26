@@ -1,30 +1,30 @@
+// Initialize the Speech Synthesis API
+let speech = new SpeechSynthesisUtterance();
 let voices = [];
-let voiceselect = document.querySelector("select");
+let voiceSelect = document.querySelector("select");
 
-function loadVoices() {
-    voices = speechSynthesis.getVoices();
+// Load available voices into the dropdown
+window.speechSynthesis.onvoiceschanged = () => {
+    voices = window.speechSynthesis.getVoices();
+    speech.voice = voices[0]; // Set default voice
 
-    if (voices.length === 0) return;
-
-    voiceselect.innerHTML = "";
     voices.forEach((voice, i) => {
-        voiceselect.options[i] = new Option(voice.name, i);
+        let option = new Option(voice.name, i);
+        voiceSelect.add(option);
     });
-}
+};
 
-speechSynthesis.onvoiceschanged = loadVoices;
+// Update voice when user changes the selection
+voiceSelect.addEventListener("change", () => {
+    speech.voice = voices[voiceSelect.value];
+});
 
-document.querySelector("button").addEventListener("click", () => {
-    let text = document.querySelector("textarea").value;
-
-    if (!text) {
-        alert("Enter text");
-        return;
-    }
-
-    let speech = new SpeechSynthesisUtterance(text);
-    speech.voice = voices[voiceselect.value];
-
-    speechSynthesis.cancel();
-    speechSynthesis.speak(speech);
+// Trigger speech when button is clicked
+document.querySelector(".l").addEventListener("click", () => {
+    // Get text from the textarea
+    speech.text = document.querySelector(".text").value;
+    
+    // Stop any current speech before starting new one
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(speech);
 });
