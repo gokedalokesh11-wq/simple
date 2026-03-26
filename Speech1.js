@@ -1,30 +1,50 @@
-// Initialize the Speech Synthesis API
 let speech = new SpeechSynthesisUtterance();
 let voices = [];
 let voiceSelect = document.querySelector("select");
+let methodStarted = false;
 
-// Load available voices into the dropdown
-window.speechSynthesis.onvoiceschanged = () => {
+function populateVoices() {
     voices = window.speechSynthesis.getVoices();
-    speech.voice = voices[0]; // Set default voice
+    
+    // Clear existing options to prevent duplicates
+    voiceSelect.innerHTML = '';
 
     voices.forEach((voice, i) => {
-        let option = new Option(voice.name, i);
+        let option = new Option(`${voice.name} (${voice.lang})`, i);
         voiceSelect.add(option);
     });
+
+    // Set a default voice if available
+    if (voices.length > 0) {
+        speech.voice = voices[0];
+    }
+} anchor
+
+// 1. Fix for Chrome: Voices are loaded asynchronously
+window.speechSynthesis.onvoiceschanged = () => {
+    populateVoices();
 };
 
-// Update voice when user changes the selection
+// 2. Fix for Firefox/Safari: Call it immediately
+populateVoices();
+
+// 3. Update voice when selection changes
 voiceSelect.addEventListener("change", () => {
     speech.voice = voices[voiceSelect.value];
 });
 
-// Trigger speech when button is clicked
+// 4. Action button
 document.querySelector(".l").addEventListener("click", () => {
-    // Get text from the textarea
-    speech.text = document.querySelector(".text").value;
+    const textToSpeak = document.querySelector(".text").value;
     
-    // Stop any current speech before starting new one
+    if (!textToSpeak) {
+        alert("Please enter or check the text first!");
+        return;
+    }
+
+    speech.text = textToSpeak;
+    
+    // Always cancel current speech before starting new one (Fixes "stuck" audio)
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(speech);
 });
