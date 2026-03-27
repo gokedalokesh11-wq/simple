@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Course</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"><style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  color:white;
+}
+
+/* Navbar */
+.navbar{
+  padding:15px 25px;
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(10px);
+}
+
+.navbar a{
+  color:white;
+  text-decoration:none;
+  font-weight:500;
+}
+
+/* Main */
+.main{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+}
+
+h1{
+  font-size:40px;
+  margin-bottom:30px;
+}
+
+/* Grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  width:100%;
+  max-width:900px;
+}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,0.1);
+  padding:25px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  transition:.3s;
+  position:relative;
+  cursor:pointer;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.card h3{
+  margin-bottom:10px;
+}
+
+.card p{
+  font-size:14px;
+  opacity:0.8;
+}
+
+.card a{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  text-decoration:none;
+}
+
+</style></head><body><div class="navbar">
+  <a href="index.html">🏠 Home</a>
+</div><div class="main"><h1>🎨 CSS Course</h1><div class="grid">  <div class="card">
+    <h3>📘 CSS Introduction</h3>
+    <p>Learn basics of styling and design</p>
+    <a href="cssintroduction.html"></a>
+  </div>  <div class="card">
+    <h3>🎓 Full Course</h3>
+    <p>Complete HTML & CSS course</p>
+    <a href="csscouse.html"></a>
+  </div>  <div class="card">
+    <h3>💻 Projects</h3>
+    <p>Build real-world UI projects</p>
+    <a href="HtmlCssProjects.html"></a>
+  </div>  <div class="card">
+    <h3>🧠 Quiz</h3>
+    <p>Test your CSS knowledge</p>
+    <a href="CssQuiz.Html"></a>
+  </div></div></div></body>
+</html>
