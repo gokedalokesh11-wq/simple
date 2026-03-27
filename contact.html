@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Members</title>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: #fff;
+      font-size: 3rem;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    /* Team container */
+    .team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* Team Card */
+    .team-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+    }
+
+    .team-card h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .team-card p {
+      color: #666;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .contact-info {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    /* Optional: Add avatar or icon */
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 15px auto;
+      object-fit: cover;
+      border: 3px solid #74ebd5;
+    }
+
+    /* Responsive text */
+    @media(max-width: 500px){
+      h1 {
+        font-size: 2.2rem;
+      }
+      .team-card h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>TEAM MEMBERS</h1>
+
+  <div class="team-container">
+    <div class="team-card">
+      <img class="avatar" src="https://via.placeholder.com/150" alt="Lokesh">
+      <h2>LOKESH</h2>
+      <p>Studying in Visakha Institute of Engineering and Technology</p>
+      <p>CSE (A) | Roll No: 24NT1A0551</p>
+      <p class="contact-info">Contact: 9652362874</p>
+    </div>
+
+    <!-- Add more team members here -->
+    <div class="team-card">
+      <img class="avatar" src="https://via.placeholder.com/150" alt="Member2">
+      <h2>Member 2</h2>
+      <p>Studying in XYZ University</p>
+      <p>CSE (B) | Roll No: 24NT1A0552</p>
+      <p class="contact-info">Contact: 9876543210</p>
+    </div>
+  </div>
+
+</body>
+</html>
