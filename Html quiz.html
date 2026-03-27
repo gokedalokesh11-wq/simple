@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Quiz</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  text-align:center;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:20px;
+  margin-bottom:20px;
+  backdrop-filter:blur(10px);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:#ffd369;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+button:hover{background:#ffb347}
+
+#certificate{
+  display:none;
+  border:5px solid gold;
+  padding:20px;
+  margin-top:20px;
+  background:white;
+  color:black;
+}
+
+input[type="text"]{
+  padding:8px;
+  border-radius:8px;
+  border:none;
+}
+
+</style></head><body><div class="container"><h1>🧠 HTML Quiz</h1><div class="card">
+<form id="quizForm"></form>
+<button onclick="checkQuiz()">Submit Quiz</button>
+</div><h2 id="result"></h2><div id="nameBox" style="display:none">
+  Enter your name:<br>
+  <input type="text" id="username">
+  <br>
+  <button onclick="generateCertificate()">Get Certificate</button>
+</div><div id="certificate">
+  <h1>🏆 Certificate of Completion</h1>
+  <p>This certifies that</p>
+  <h2 id="certName"></h2>
+  <p>has successfully passed the HTML Quiz.</p>
+  <p>Score: <span id="certScore"></span>/10</p>
+  <button onclick="downloadCert()">Download</button>
+</div></div><script>
+
+const questions = [
+  {q:"What does HTML stand for?",a:["Hyper Text Markup Language","High Text Machine Language"],correct:0},
+  {q:"Which tag creates hyperlink?",a:["a","link"],correct:0},
+  {q:"Which tag is used for image?",a:["img","image"],correct:0},
+  {q:"HTML is used to?",a:["Structure web pages","Design database"],correct:0},
+  {q:"Largest heading tag?",a:["h1","h6"],correct:0},
+  {q:"Paragraph tag?",a:["p","para"],correct:0},
+  {q:"List tag?",a:["ul","list"],correct:0},
+  {q:"Line break tag?",a:["br","break"],correct:0},
+  {q:"Table tag?",a:["table","tab"],correct:0},
+  {q:"HTML file extension?",a:[".html",".ht"],correct:0}
+];
+
+// Shuffle questions
+questions.sort(()=>Math.random()-0.5);
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item,index)=>{
+  let div=document.createElement("div");
+  div.classList.add("card");
+
+  let html=`<p>${index+1}. ${item.q}</p>`;
+
+  item.a.forEach((opt,i)=>{
+    html+=`<input type="radio" name="q${index}" value="${i}"> ${opt}<br>`;
+  });
+
+  div.innerHTML=html;
+  form.appendChild(div);
+});
+
+function checkQuiz(){
+  let score=0;
+
+  questions.forEach((item,index)=>{
+    let opts=document.getElementsByName("q"+index);
+    opts.forEach(opt=>{
+      if(opt.checked && Number(opt.value)===item.correct){
+        score++;
+      }
+    });
+  });
+
+  document.getElementById("result").innerHTML="Score: "+score+"/10";
+
+  if(score>=7){
+    document.getElementById("nameBox").style.display="block";
+    window.quizScore=score;
+  } else {
+    document.getElementById("result").innerHTML+="<br>❌ Try Again";
+  }
+}
+
+function generateCertificate(){
+  let name=document.getElementById("username").value;
+  document.getElementById("certName").innerText=name;
+  document.getElementById("certScore").innerText=window.quizScore;
+  document.getElementById("certificate").style.display="block";
+}
+
+function downloadCert(){
+  let win=window.open();
+  win.document.write(document.getElementById("certificate").innerHTML);
+  win.print();
+}
+
+</script></body>
+</html>
