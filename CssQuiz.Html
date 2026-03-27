@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced CSS Quiz</title>
+
+<style>
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  margin:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  color:#333;
+}
+
+.quiz-box{
+  background:#fff;
+  width:90%;
+  max-width:500px;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  text-align:center;
+  animation:fadeIn 0.6s ease;
+}
+
+h2{
+  margin-bottom:10px;
+}
+
+/* Progress Bar */
+.progress{
+  height:8px;
+  background:#eee;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff7e5f,#feb47b);
+  transition:0.4s;
+}
+
+/* Question */
+#question{
+  font-size:18px;
+  font-weight:bold;
+  margin:15px 0;
+}
+
+/* Options */
+.option{
+  display:block;
+  background:#f4f4f4;
+  margin:10px 0;
+  padding:12px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.option:hover{
+  background:#dfe9ff;
+}
+
+/* Buttons */
+.btn{
+  padding:10px 20px;
+  margin:10px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ff7e5f,#feb47b);
+  color:white;
+}
+
+.btn:hover{
+  transform:scale(1.05);
+}
+
+/* Hidden */
+.hidden{display:none;}
+
+/* Certificate */
+#certificate{
+  border:6px double black;
+  padding:20px;
+  margin-top:20px;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+<h2>🔥 CSS Quiz</h2>
+
+<div class="progress">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div id="quiz-container">
+  <div id="question"></div>
+  <div id="options"></div>
+
+  <button class="btn" onclick="prevQuestion()">⬅ Prev</button>
+  <button class="btn" onclick="nextQuestion()">Next ➡</button>
+</div>
+
+<h3 id="result"></h3>
+
+<div id="nameSection" class="hidden">
+<input type="text" id="username" placeholder="Enter your name">
+<br>
+<button class="btn" onclick="generateCertificate()">Generate Certificate</button>
+</div>
+
+<div id="certificate" class="hidden">
+<h1>Certificate</h1>
+<p>Awarded to</p>
+<h2 id="certName"></h2>
+<p>for passing CSS Quiz</p>
+<button class="btn" onclick="downloadCertificate()">Download</button>
+</div>
+
+</div>
+
+<script>
+
+/* QUESTIONS */
+let quizData = [
+  {q:"What does CSS stand for?", a:["Cascading Style Sheets","Computer Style Sheets","Creative Style System"], c:0},
+  {q:"Which tag is used for CSS?", a:["style","css","script"], c:0},
+  {q:"Text color property?", a:["color","font-style","text-align"], c:0},
+  {q:"Background color property?", a:["background-color","color","bg-color"], c:0},
+  {q:"Class selector symbol?", a:[".","#","*"], c:0},
+  {q:"ID selector symbol?", a:["#",".","@"], c:0},
+  {q:"Font size property?", a:["font-size","text-size","font-style"], c:0},
+  {q:"Align center property?", a:["text-align","align-text","text-position"], c:0},
+  {q:"Inside spacing?", a:["padding","margin","border"], c:0},
+  {q:"Outside spacing?", a:["margin","padding","space"], c:0}
+];
+
+/* SHUFFLE FUNCTION */
+function shuffle(array){
+  for(let i=array.length-1;i>0;i--){
+    let j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
+  }
+}
+
+/* SHUFFLE QUESTIONS */
+shuffle(quizData);
+
+let current=0;
+let answers=new Array(quizData.length).fill(null);
+
+/* LOAD QUESTION */
+function loadQuestion(){
+  let q=quizData[current];
+  document.getElementById("question").innerText=q.q;
+
+  let optionsHTML="";
+  q.a.forEach((opt,i)=>{
+    let checked = answers[current]==i ? "style='background:#cce5ff'" : "";
+    optionsHTML += `<div class="option" ${checked} onclick="selectOption(${i})">${opt}</div>`;
+  });
+
+  document.getElementById("options").innerHTML=optionsHTML;
+
+  document.getElementById("progressBar").style.width=
+    ((current+1)/quizData.length)*100 + "%";
+}
+
+/* SELECT OPTION */
+function selectOption(i){
+  answers[current]=i;
+  loadQuestion();
+}
+
+/* NEXT */
+function nextQuestion(){
+  if(current<quizData.length-1){
+    current++;
+    loadQuestion();
+  }else{
+    submitQuiz();
+  }
+}
+
+/* PREV */
+function prevQuestion(){
+  if(current>0){
+    current--;
+    loadQuestion();
+  }
+}
+
+/* SUBMIT */
+function submitQuiz(){
+  let score=0;
+  quizData.forEach((q,i)=>{
+    if(answers[i]==q.c) score++;
+  });
+
+  document.getElementById("quiz-container").classList.add("hidden");
+
+  document.getElementById("result").innerText="Score: "+score+"/10";
+
+  if(score>=7){
+    document.getElementById("nameSection").classList.remove("hidden");
+  }else{
+    document.getElementById("result").innerHTML+=" ❌ Failed";
+  }
+}
+
+/* CERTIFICATE */
+function generateCertificate(){
+  let name=document.getElementById("username").value;
+  if(name==""){ alert("Enter name"); return; }
+
+  document.getElementById("certName").innerText=name;
+  document.getElementById("certificate").classList.remove("hidden");
+}
+
+/* DOWNLOAD */
+function downloadCertificate(){
+  let cert=document.getElementById("certificate").innerHTML;
+  let win=window.open();
+  win.document.write(cert);
+  win.print();
+}
+
+/* INIT */
+loadQuestion();
+
+</script>
+
+</body>
+</html>
