@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced JS Quiz</title>
+
+<style>
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#1d2b64,#f8cdda);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+width:90%;
+max-width:600px;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+h2{text-align:center;}
+
+#progress{
+height:10px;
+background:#ddd;
+border-radius:10px;
+overflow:hidden;
+margin-bottom:15px;
+}
+
+#progress-bar{
+height:100%;
+width:0%;
+background:#00ffcc;
+}
+
+.question{
+margin:15px 0;
+}
+
+.option{
+background:rgba(255,255,255,0.2);
+padding:10px;
+margin:8px 0;
+border-radius:10px;
+cursor:pointer;
+}
+
+.option:hover{
+background:#00ffcc;
+color:black;
+}
+
+.selected{
+background:#00ffcc;
+color:black;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#00ffcc;
+cursor:pointer;
+margin-top:10px;
+}
+
+#timer{
+font-weight:bold;
+text-align:right;
+}
+
+.hidden{display:none;}
+
+#certificate{
+background:white;
+color:black;
+padding:30px;
+border-radius:10px;
+text-align:center;
+border:8px solid gold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>JavaScript Quiz</h2>
+<div id="timer">Time: 15</div>
+
+<div id="progress">
+<div id="progress-bar"></div>
+</div>
+
+<div id="quiz"></div>
+
+<button onclick="nextQuestion()">Next</button>
+
+<h3 id="result"></h3>
+
+<div id="nameBox" class="hidden">
+<input type="text" id="username" placeholder="Enter your name">
+<br>
+<button onclick="generateCert()">Generate Certificate</button>
+</div>
+
+<div id="certificate" class="hidden">
+<h1>🏆 Certificate</h1>
+<p>This is awarded to</p>
+<h2 id="certName"></h2>
+<p>For passing JavaScript Quiz</p>
+<button onclick="downloadCert()">Download</button>
+</div>
+
+</div>
+
+<script>
+
+const questions=[
+{q:"What is JavaScript?",a:["Programming Language","Styling","Database"],c:0},
+{q:"Keyword for variable?",a:["let","define","varr"],c:0},
+{q:"Console output?",a:["console.log()","echo()","print()"],c:0},
+{q:"Array syntax?",a:["[]","{}","()"],c:0},
+{q:"Event for click?",a:["onclick","onhover","onpress"],c:0},
+{q:"Function keyword?",a:["function","func","def"],c:0},
+{q:"Loop?",a:["for","if","switch"],c:0},
+{q:"Data type?",a:["String","Char","Float32"],c:0},
+{q:"Equality?",a:["==","=","!="],c:0},
+{q:"Comment?",a:["//","##","**"],c:0}
+];
+
+// shuffle
+questions.sort(()=>Math.random()-0.5);
+
+let index=0,score=0,selected=null,time=15;
+let timerInterval;
+
+function loadQuestion(){
+clearInterval(timerInterval);
+time=15;
+startTimer();
+
+const q=questions[index];
+let html=`<div class="question"><h3>${index+1}. ${q.q}</h3>`;
+q.a.forEach((opt,i)=>{
+html+=`<div class="option" onclick="selectOption(${i},this)">${opt}</div>`;
+});
+html+="</div>";
+
+document.getElementById("quiz").innerHTML=html;
+updateProgress();
+selected=null;
+}
+
+function selectOption(i,el){
+document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
+el.classList.add("selected");
+selected=i;
+}
+
+function nextQuestion(){
+
+if(selected===null){
+alert("Select answer!");
+return;
+}
+
+if(selected===questions[index].c) score++;
+
+index++;
+
+if(index<questions.length){
+loadQuestion();
+}else{
+endQuiz();
+}
+}
+
+function updateProgress(){
+let percent=(index/questions.length)*100;
+document.getElementById("progress-bar").style.width=percent+"%";
+}
+
+function startTimer(){
+timerInterval=setInterval(()=>{
+time--;
+document.getElementById("timer").innerText="Time: "+time;
+
+if(time===0){
+clearInterval(timerInterval);
+nextQuestion();
+}
+},1000);
+}
+
+function endQuiz(){
+clearInterval(timerInterval);
+document.getElementById("quiz").innerHTML="";
+document.querySelector("button").style.display="none";
+
+document.getElementById("result").innerHTML="Score: "+score+"/10";
+
+if(score>=7){
+document.getElementById("nameBox").classList.remove("hidden");
+}else{
+document.getElementById("result").innerHTML+="<br>❌ Failed!";
+}
+}
+
+function generateCert(){
+let name=document.getElementById("username").value;
+if(name===""){alert("Enter name");return;}
+
+document.getElementById("certName").innerText=name;
+document.getElementById("certificate").classList.remove("hidden");
+}
+
+function downloadCert(){
+let content=document.getElementById("certificate").innerHTML;
+let win=window.open();
+win.document.write(content);
+win.print();
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
