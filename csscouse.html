@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Video + TTS</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Headings */
+h1, h2 {
+  text-align: center;
+  color: white;
+}
+
+/* Video */
+iframe {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+/* Card */
+.card {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* Highlight box */
+#highlightBox {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  line-height: 1.7;
+}
+
+/* Highlight word */
+.highlight {
+  background: yellow;
+  font-weight: bold;
+}
+
+/* Controls */
+.controls {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(45deg, #ff7eb3, #ff758c);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #ff4e8a, #ff2e63);
+}
+
+/* Responsive */
+@media(max-width:600px){
+  iframe {
+    height: 250px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🎥 CSS Learning Video</h1>
+
+  <iframe 
+    src="https://www.youtube.com/embed/a_iQb1lnAEQ"
+    allowfullscreen>
+  </iframe>
+
+  <!-- TTS Section -->
+  <div class="card">
+    <h2>🔊 Text To Speech</h2>
+
+    <div id="highlightBox"></div>
+
+    <div class="controls">
+      <button onclick="playSpeech()">▶ Play</button>
+      <button onclick="pauseSpeech()">⏸ Pause</button>
+      <button onclick="resumeSpeech()">⏯ Resume</button>
+      <button onclick="stopSpeech()">⏹ Stop</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const text = `🎨 1.CSS Fundamentals
+
+ How to style HTML
+Colors, fonts, spacing
+Margin & padding
+Borders and alignment
+👉 You learn how to make your website look good
+
+📦 2. Layout & Design
+
+Divs and containers
+Inline vs block elements
+Centering content
+Flexbox (important 🔥)
+👉 Helps you build modern UI designs
+
+🧩 3. CSS Classes & Styling
+
+Reusable styles using classes
+Styling buttons, inputs
+Creating responsive layouts
+
+🚀 4. Real Projects (Very Important)
+
+The video teaches by building projects like:
+Personal website
+Google homepage clone
+Digital business card
+Space exploration site
+Birthday gift site
+👉 You learn by doing real projects, not just theory �
+Reddit
+
+🌐 5. Deployment
+
+How to publish your website online
+Using tools like GitHub
+
+🎯 6. Advanced Basics
+
+Flexbox layout
+Background images
+Gradients
+Hover effects
+Fonts and styling tricks
+
+🎯 Final Summary
+
+👉 From this video, you learn:
+HTML structure
+CSS styling
+Layout design
+Real-world projects
+Website deployment.
+`;
+
+let words = text.split(" ");
+let index = 0;
+let utterance;
+
+const box = document.getElementById("highlightBox");
+
+function renderText(highlightIndex = -1) {
+  box.innerHTML = words.map((word, i) => {
+    return i === highlightIndex
+      ? `<span class="highlight">${word}</span>`
+      : word;
+  }).join(" ");
+}
+
+renderText();
+
+function playSpeech() {
+  speechSynthesis.cancel();
+  index = 0;
+  renderText();
+
+  utterance = new SpeechSynthesisUtterance(text);
+
+  utterance.rate = 0.9;
+  utterance.pitch = 1;
+
+  utterance.onboundary = function(event) {
+    if (event.name === "word") {
+      renderText(index);
+      index++;
+    }
+  };
+
+  speechSynthesis.speak(utterance);
+}
+
+function pauseSpeech() {
+  speechSynthesis.pause();
+}
+
+function resumeSpeech() {
+  speechSynthesis.resume();
+}
+
+function stopSpeech() {
+  speechSynthesis.cancel();
+  index = 0;
+  renderText();
+}
+</script>
+
+</body>
+</html>
