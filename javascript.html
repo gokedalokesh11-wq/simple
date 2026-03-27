@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Course</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Main */
+.main {
+  text-align: center;
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+/* Card Container */
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 85%;
+  margin: auto;
+}
+
+/* Cards */
+.card {
+  padding: 25px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  background: rgba(255,255,255,0.3);
+}
+
+/* Links */
+.card a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Icons */
+.icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media(max-width:600px){
+  h1 {
+    font-size: 24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <a href="index.html">🏠 Home</a>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <h1>🚀 JavaScript Course</h1>
+
+  <div class="course-list">
+
+    <div class="card">
+      <div class="icon">📘</div>
+      <a href="JavascriptIntro.html">JavaScript Introduction</a>
+    </div>
+
+    <div class="card">
+      <div class="icon">🎥</div>
+      <a href="JavascriptFullcourse.html">Full Course</a>
+    </div>
+
+    <div class="card">
+      <div class="icon">💻</div>
+      <a href="JavaScriptprojects.html">Projects</a>
+    </div>
+
+    <div class="card">
+      <div class="icon">🧠</div>
+      <a href="javascriptquiz.html">Quiz</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+  </html>
