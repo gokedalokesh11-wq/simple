@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Projects</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+}
+
+/* Navbar */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 25px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+}
+
+.navbar a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* Container */
+.container{
+  width:90%;
+  max-width:1100px;
+  margin:40px auto;
+  text-align:center;
+}
+
+h1{
+  margin-bottom:30px;
+}
+
+/* Grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,0.2);
+  padding:20px;
+  border-radius:15px;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.card:hover{
+  transform:translateY(-8px) scale(1.03);
+}
+
+/* Button */
+button{
+  margin-top:10px;
+  padding:8px 15px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(45deg,#ff7eb3,#ff758c);
+  color:white;
+  cursor:pointer;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* Modal */
+.modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:10px;
+  width:80%;
+  max-width:400px;
+}
+
+.close{
+  float:right;
+  cursor:pointer;
+  font-size:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">🏠 Home</a>
+  <span>🚀 Projects</span>
+</div>
+
+<div class="container">
+  <h1>💡 JavaScript Project Ideas</h1>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>🧮 Calculator</h3>
+      <p>Perform basic calculations with UI.</p>
+      <button onclick="openModal('Calculator app with add, subtract, multiply, divide functions.')">View</button>
+    </div>
+
+    <div class="card">
+      <h3>📝 To-Do List</h3>
+      <p>Manage daily tasks easily.</p>
+      <button onclick="openModal('Add, delete and mark tasks as completed.')">View</button>
+    </div>
+
+    <div class="card">
+      <h3>🌦 Weather App</h3>
+      <p>Check weather of any city.</p>
+      <button onclick="openModal('Fetch weather data using API and display temperature.')">View</button>
+    </div>
+
+    <div class="card">
+      <h3>🧠 Quiz App</h3>
+      <p>Test your knowledge.</p>
+      <button onclick="openModal('Multiple questions with score tracking.')">View</button>
+    </div>
+
+    <div class="card">
+      <h3>🎵 Music Player</h3>
+      <p>Play songs with controls.</p>
+      <button onclick="openModal('Play, pause and control music with UI.')">View</button>
+    </div>
+
+    <div class="card">
+      <h3>🌙 Dark Mode</h3>
+      <p>Toggle theme easily.</p>
+      <button onclick="openModal('Switch between dark and light themes.')">View</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <p id="modalText"></p>
+  </div>
+</div>
+
+<script>
+function openModal(text){
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("modalText").innerText=text;
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+</script>
+
+</body>
+      </html>
