@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Learning + TTS</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+h1, h2 {
+  text-align: center;
+  color: white;
+}
+
+iframe {
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+.card {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.2);
+}
+
+#highlightBox {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  line-height: 1.6;
+}
+
+.highlight {
+  background: yellow;
+  font-weight: bold;
+}
+
+.controls {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(45deg, #ff7eb3, #ff758c);
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>🎥 CSS Introduction Video</h1>
+  <p style="text-align:center; color:white;">
+    Learn the basics of CSS from this video.
+  </p>
+
+  <iframe width="100%" height="400"
+    src="https://www.youtube.com/embed/qKoajPPWpmo"
+    allowfullscreen>
+  </iframe>
+
+  <div class="card">
+    <h2>🔊 Text To Speech</h2>
+
+    <div id="highlightBox"></div>
+
+    <div class="controls">
+      <button onclick="playSpeech()">▶ Play</button>
+      <button onclick="pauseSpeech()">⏸ Pause</button>
+      <button onclick="resumeSpeech()">⏯ Resume</button>
+      <button onclick="stopSpeech()">⏹ Stop</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const text = `What you learn in this video.
+
+This is a basic CSS introduction video, so it mainly teaches beginner concepts.
+
+1. What is CSS.
+CSS means Cascading Style Sheets.
+It is used to style HTML pages like colors, fonts, and layout.
+Example: change background color, style text, and design layouts.
+
+2. Why CSS is important.
+It makes websites attractive and user friendly.
+It separates design from HTML content.
+Without CSS the page looks plain.
+With CSS the page looks beautiful.
+
+3. Types of CSS.
+Inline CSS, Internal CSS, and External CSS.
+External CSS is most useful in real projects.
+
+4. Basic CSS syntax.
+Selector, property, and value.
+Example: h1 color red.
+
+5. Selectors.
+Tag selector, class selector, and id selector.
+
+6. Common properties.
+Colors, fonts, spacing, and borders.
+
+7. How CSS works in browser.
+HTML loads, CSS applies styles, and the page is displayed nicely.
+`;
+
+let words = text.split(" ");
+let index = 0;
+
+let utterance = new SpeechSynthesisUtterance(text);
+
+const box = document.getElementById("highlightBox");
+
+function renderText(highlightIndex = -1) {
+  box.innerHTML = words.map((word, i) => {
+    return i === highlightIndex
+      ? `<span class="highlight">${word}</span>`
+      : word;
+  }).join(" ");
+}
+
+renderText();
+
+function playSpeech() {
+  speechSynthesis.cancel();
+  index = 0;
+  renderText();
+
+  utterance = new SpeechSynthesisUtterance(text);
+
+  utterance.onboundary = function(event) {
+    if (event.name === "word") {
+      renderText(index);
+      index++;
+    }
+  };
+
+  speechSynthesis.speak(utterance);
+}
+
+function pauseSpeech() {
+  speechSynthesis.pause();
+}
+
+function resumeSpeech() {
+  speechSynthesis.resume();
+}
+
+function stopSpeech() {
+  speechSynthesis.cancel();
+  index = 0;
+  renderText();
+}
+</script>
+
+</body>
+</html>
